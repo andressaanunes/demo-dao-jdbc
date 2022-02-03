@@ -29,8 +29,10 @@ public class SellerDaoJDBC implements SellerDao {
 	public void insert(Seller obj) {
 		PreparedStatement st = null;
 		try {
-			st = conn.prepareStatement("INSERT INTO seller " + "(Name, Email, BirthDate, BaseSalary, DepartmentId) "
-					+ "VALUES " + "(?, ?, ?, ?, ?)", Statement.RETURN_GENERATED_KEYS);
+			st = conn.prepareStatement("INSERT INTO seller " 
+		           + "(Name, Email, BirthDate, BaseSalary, DepartmentId) "
+				   + "VALUES " 
+		           + "(?, ?, ?, ?, ?)", Statement.RETURN_GENERATED_KEYS);
 
 			st.setString(1, obj.getName());
 			st.setString(2, obj.getEmail());
@@ -89,6 +91,7 @@ public class SellerDaoJDBC implements SellerDao {
 			st.setInt(1, id);
 
 			st.executeUpdate();
+			
 		} catch (SQLException e) {
 			throw new DbException(e.getMessage());
 		} finally {
@@ -103,7 +106,7 @@ public class SellerDaoJDBC implements SellerDao {
 		try {
 			st = conn.prepareStatement(
 					"SELECT seller.*,department.Name as DepName " + "FROM seller INNER JOIN department "
-							+ "ON seller.DepartmentId = department.Id " + "WHERE seller.Id = ?");
+					+ "ON seller.DepartmentId = department.Id " + "WHERE seller.Id = ?");
 
 			st.setInt(1, id);
 			rs = st.executeQuery();
